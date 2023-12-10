@@ -37,22 +37,25 @@ class AuthController extends Controller
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
-                ]
+                ],
             ]);
 
     }
 
     public function register(Request $request){
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+
+        if(!$request->id_user_type){
+            $request['id_user_type'] = 3;
+        }
+
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'age' => $request->age,
+            'id_user_type' => $request->id_user_type,
         ]);
 
         $token = Auth::login($user);
