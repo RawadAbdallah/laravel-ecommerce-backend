@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartItemsController;
+use App\Http\Controllers\CartsController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +26,17 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(ProductsController::class)->group(function () {
     Route::get('products', 'index');
-    Route::post('createProduct', 'createProduct');
+    Route::post('addProduct', 'createProduct');
     Route::post('deleteProduct', 'deleteProduct');
     Route::post('updateProduct', 'updateProduct');
+});
+
+Route::controller(CartsController::class)->group(function () {
+    Route::post('newCart', 'createCart');
+    Route::post('deleteCart', 'deleteCart'  );
+});
+
+Route::controller(CartItemsController::class)->group(function () {
+    Route::get('cart', 'index');
+    Route::post('addItem', 'store');
 });
