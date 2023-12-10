@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->integer('age');
             $table->rememberToken();
             $table->unsignedBigInteger('id_user_type');
+            $table->enum('gender', ['male', 'female']);
             $table->foreign('id_user_type')->references('id_user_type')->on('user_types')->onDelete('cascade');
             $table->timestamps();
         });
